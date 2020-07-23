@@ -19,7 +19,7 @@ dotenv.config();
 
 var client_id = process.env.API_ID; // Your client id
 var client_secret = process.env.API_SECRET; // Your secret
-var redirect_uri = 'http://localhost:4000/callback' // Your redirect uri
+var redirect_uri = 'https://bsr-client.herokuapp.com/callback' // Your redirect uri
 //https://bsr-client.herokuapp.com/callback
 
 /**
@@ -149,5 +149,5 @@ app.get('/refresh_token', function(req, res) {
 });
 
 console.log('Listening on 4000');
-//app.listen(process.env.PORT);
-app.listen(4000);
+app.listen(process.env.PORT);
+//app.listen(4000);
