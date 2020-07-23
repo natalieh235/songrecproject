@@ -13,9 +13,14 @@ var cors = require('cors');
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
 
-var client_id = 'f31f7be4fafb4177848cea89d05606d1'; // Your client id
-var client_secret = '3d8b6422292f4735b5fdcd637b74e439'; // Your secret
-var redirect_uri = 'https://bsr-client.herokuapp.com/callback' // Your redirect uri
+// server.js
+const dotenv = require('dotenv');
+dotenv.config();
+
+var client_id = process.env.API_ID; // Your client id
+var client_secret = process.env.API_SECRET; // Your secret
+var redirect_uri = 'http://localhost:4000/callback' // Your redirect uri
+//https://bsr-client.herokuapp.com/callback
 
 /**
  * Generates a random string containing numbers and letters
@@ -144,5 +149,5 @@ app.get('/refresh_token', function(req, res) {
 });
 
 console.log('Listening on 4000');
-app.listen(process.env.PORT);
-//app.listen(4000);
+//app.listen(process.env.PORT);
+app.listen(4000);
