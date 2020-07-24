@@ -1,9 +1,9 @@
 import React from 'react';
 import FaceImage from './FaceImage'
-import EmotionDisplay from './EmotionDisplay'
-import FaceForm from './FaceForm'
-import SongPage from './SongPage'
-import UserProfile from './UserProfile'
+import EmotionDisplay from './FaceDetails/EmotionDisplay'
+import FaceForm from './FormFolder/FaceForm'
+import SongPage from './Song/SongPage'
+import UserProfile from './FaceDetails/UserProfile'
 
 
 class UploadFace extends React.Component {
