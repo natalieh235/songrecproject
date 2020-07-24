@@ -1,5 +1,5 @@
 import React from 'react';
-import FaceImage from './FaceImage'
+import FaceImage from './FormFolder/FaceImage'
 import EmotionDisplay from './FaceDetails/EmotionDisplay'
 import FaceForm from './FormFolder/FaceForm'
 import SongPage from './Song/SongPage'

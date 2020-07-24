@@ -1,5 +1,5 @@
 import React from 'react';
-import Face from './images/faces.png'
+import Face from './faces.png'
 
 function Home() {
   return (
