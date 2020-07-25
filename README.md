@@ -24,6 +24,7 @@ Deploy your resource, and save your endpoint!
 
 
 
+
 ### Creating an Azure Function
 
 It's time to create our Azure Function- I'm just using the Azure Portal, but those who prefer Visual Studio Code can refer [here.](https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-first-function-vs-code?pivots=programming-language-javascript) In the portal, select **Create a Resource **and then press **Function App**. Select a Resource Group(mine uses the same one as the Face API resource) and give the app a unique name. For runtime stack, select Node.js and Version 12. For region, choose one near you.
