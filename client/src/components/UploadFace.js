@@ -2,7 +2,7 @@ import React from 'react';
 import FaceImage from './FormFolder/FaceImage'
 import EmotionDisplay from './FaceDetails/EmotionDisplay'
 import FaceForm from './FormFolder/FaceForm'
-import SongPage from './Song/SongPage'
+import SongPage from './SongFolder/SongPage'
 import UserProfile from './FaceDetails/UserProfile'
 
 
