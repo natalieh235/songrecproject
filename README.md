@@ -6,9 +6,9 @@ Ever looked at your face and wondered how you were feeling? No? Neither have I, 
 
 First step is to get an actual Face API endpoint. This can be done easily in the Azure Portal: Go to **Create a Resource**, press the **AI + Machine Learning** tab on the left, and select **Face**.
 
-![Screen Shot 2020-07-25 at 11.03.35 AM](/Users/Natalie/Desktop/Screen Shot 2020-07-25 at 11.03.35 AM.png)
+![clickAI+Face](images/clickAI+Face.png)
 
-Deploy your resrouce, and save your endpoint!
+Deploy your resource, and save your endpoint!
 
 
 
@@ -16,7 +16,7 @@ Deploy your resrouce, and save your endpoint!
 
 It's time to create our Azure Function- I'm just using the Azure Portal, but those who prefer Visual Studio Code can refer [here.](https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-first-function-vs-code?pivots=programming-language-javascript) In the portal, select **Create a Resource **and then press **Function App**. Select a Resource Group(mine uses the same one as the Face API resource) and give the app a unique name. For runtime stack, select Node.js and Version 12. For region, choose one near you.
 
-![Screen Shot 2020-07-25 at 11.46.06 AM](/Users/Natalie/Desktop/Screen Shot 2020-07-25 at 11.46.06 AM.png)
+![createFunctionApp](images/createFunctionApp.png)
 
 Go to **Hosting**.
 
@@ -36,11 +36,11 @@ Enable Application Insights.
 
 Now that our Function App exists, we can create an actual function. 
 
-![Screen Shot 2020-07-25 at 11.50.49 AM](/Users/Natalie/Desktop/Screen Shot 2020-07-25 at 11.50.49 AM.png)
+![createNewFunction](images/createNewFunction.png)
 
 Your functions page should look something like this, but empty. To create a function, click the **+Add** button and select HTTP trigger. Set your authorization level as function- this means that the caller needs to provide a key.
 
-![Screen Shot 2020-07-25 at 11.51.32 AM](/Users/Natalie/Desktop/Screen Shot 2020-07-25 at 11.51.32 AM.png)
+![newHTTPFunction](images/newHTTPFunction.png)
 
 
 
@@ -189,6 +189,7 @@ Here's a sample HTML webage(ft absolutely nonexistent styling)...
 and the corresponding js file(called app.js)
 
 ```js
+
 function handle(event){
 
     event.stopPropagation();
@@ -252,16 +253,16 @@ function clearForm(){
 
 The HTML contains form with a file input. Inside the app.js file, the `handle(event)`function is called upon form submission, and makes an http post call to your Azure Function with the submitted image in the body. Make sure you replace the url with your own Function url, and the key with your Function key. You can deploy this html page however you like- I'm just doing it with the **live server extension** in Visual Studio Code like so:
 
-![Screen Shot 2020-07-25 at 12.30.26 PM](/Users/Natalie/Desktop/Screen Shot 2020-07-25 at 12.30.26 PM.png)
+![liveServer](images/liveServer.png)
 
 The final step for this test to work is to allow this HTML page to interact with your function through CORS. Go to your App Service resource(not the individual function) and click the CORS tab on the left side. Add your http: url to the allowed origins(this works with local hosts and live servers).
 
-![Screen Shot 2020-07-25 at 12.31.59 PM](/Users/Natalie/Desktop/Screen Shot 2020-07-25 at 12.31.59 PM.png)
+![CORS](images/CORS.png)
 
 Run your HTML page, upload a file, and have fun seeing the results!
 
 
 
-![Screen Shot 2020-07-25 at 12.35.52 PM](/Users/Natalie/Library/Application Support/typora-user-images/Screen Shot 2020-07-25 at 12.35.52 PM.png)
+![lolExample](images/lolExample.png)
 
 Check out the range in her face!! 
