@@ -2,6 +2,18 @@
 
 Ever looked at your face and wondered how you were feeling? No? Neither have I, but lucky for the both of us, the Microsoft Face API can do exactly this. In this series, I’ll be outlining the process of building an app that recommends songs based on a picture(tagline: Upload a selfie. We choose the songs). The user will login to Spotify, upload a picture of themselves, and receive a customized playlist that (hopefully) matches their current mood. In Part 1, we’ll be focusing on the centerpiece: deciphering the user’s face.
 
+We'll be using Azure Functions in this project. If you're unfamiliar, Azure Functions allows you to write and deploy serverless code without having to manage infrastructure. It incorporates a variety of triggers that allows your function to run on-demand in response to a variety of events. Here are a couple common triggers:
+
+HTTP Trigger(today's star <3)
+Timers Trigger(runs on a timed bases: daily, weekly, etc)
+Blob Trigger(when a file is added to Azure Blob storage)
+Cosmos DB Trigger(when data is added to Azure Cosmos DB)
+Storage queue Trigger(when a message is submitted to the storage queue)
+
+To familiarze yourself with the different types, I'd recommend trying out [this](https://docs.microsoft.com/en-us/learn/modules/execute-azure-function-with-triggers/) Microsoft module, which runs you through some basic examples.
+
+
+
 ### Creating a Face API Subscription
 
 First step is to get an actual Face API endpoint. This can be done easily in the Azure Portal: Go to **Create a Resource**, press the **AI + Machine Learning** tab on the left, and select **Face**.
