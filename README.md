@@ -1,6 +1,6 @@
 ### [Better Song Recommendations #1] Using the Microsoft Face API and Azure Functions to get \*emotional\* 
 
-Ever looked at your face and wondered how you were feeling? No? Neither have I, but lucky for the both of us, the Microsoft Face API can do exactly this. In this series, I’ll be outlining the process of building an app that recommends songs based on a picture(tagline: Upload a selfie. We choose the songs). In Part 1, we’ll be focusing on the centerpiece: deciphering the user’s face.
+Ever looked at your face and wondered how you were feeling? No? Neither have I, but lucky for the both of us, the Microsoft Face API can do exactly this. In this series, I’ll be outlining the process of building an app that recommends songs based on a picture(tagline: Upload a selfie. We choose the songs). The user will login to Spotify, upload a picture of themselves, and receive a customized playlist that (hopefully) matches their current mood. In Part 1, we’ll be focusing on the centerpiece: deciphering the user’s face.
 
 ### Creating a Face API Subscription
 
