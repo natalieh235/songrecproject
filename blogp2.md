@@ -88,7 +88,7 @@ Pressing login should take you to an authorization page. Once you login, you'll 
 
 ![loggedinas](images/loggedinas.png)
 
-Checkout the url of the final page! 
+Check out the url of the final page! 
 
 ![loggedinurl](images/loggedinurl.png)
 
