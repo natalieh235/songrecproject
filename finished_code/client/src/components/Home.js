@@ -1,6 +1,6 @@
 import React from 'react';
-import Face from './images/faces.png'
-
+import Face from './faces.png'
+//"https://bsr-client.herokuapp.com/"
 function Home() {
   return (
     <div className="home-page">
