@@ -299,7 +299,7 @@ Here, we're using an `if` statement to check if the state variable `submitted` i
 
 The loading page:
 
-![loadingpage](/images/loadingpage)
+![loadingpage](/images/loadingpage.png)
 
  
 
@@ -422,7 +422,7 @@ Here's the whole `getRecommendations()` function:
 
 In the rest of the code, I'm pretty much just displaying these 10 songs. Here's what the finished page looks like:
 
-![finishedpage](/images/finishedpage)
+![finishedpage](/images/finishedpage.png)
 
 
 
