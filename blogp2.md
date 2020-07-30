@@ -30,7 +30,7 @@ There are different types of authorization flows, but today we'll be using the [
 
 ![spotifyoauthflow](images/spotifyoauthflow.png)
 
-This basically allows the user to login, and then redirects the user to a specified webpage with an access token in the URL, which our app can then use to make API calls. Now that we've got the basic concept down, let's get started!
+Follow the arrows and notice the data getting passed through in each step: the app has a client id and secret, and uses these to request a token from the Spotify Accounts Service. Then the app redirects the user to a specified webpage with an access token in the URL, which our app needs to call the Spotify Web API. Now that we've got the basic concept down, let's get started!
 
 
 
@@ -42,7 +42,7 @@ Click into your app to a page like this:
 
 ![spotifydashboard](images/spotifydashboard.png)
 
-Save and don't reveal your Client ID and Client Secret. Then press on **EDIT SETTINGS**. We're going to add a Redirect URI here- this is the URI that the user will be redirected to once authorization is complete. For now, use `http://localhost:8888/callback`.  **MAKE SURE YOU CLICK THE SAVE BUTTON AT THE BOTTOM.**
+Save and don't reveal your Client ID and Client Secret. Then press on **EDIT SETTINGS**. We're going to add a Redirect URI here- this is the URI that the user will be redirected to once authorization is complete. For now, use `http://localhost:8888/callback`. The /callback part will indicate to our Node app that a request to the Spotify Accounts Service for a token should be made.   **MAKE SURE YOU CLICK THE SAVE BUTTON AT THE BOTTOM.**
 
 ![redirecturi](images/redirecturi.png)
 
@@ -92,7 +92,7 @@ Check out the url of the final page!
 
 ![loggedinurl](images/loggedinurl.png)
 
-Notice that it's the original url, just with an access token attached. If you also take a closer look at the code, notice that clicking login will take you to `localhost:8888/callback`, where a Spotify API call is made to get a token. You're then redirected to `localhost:8888/#access_token=...` , where we can actually access the token from the url.
+Notice that it's the original url, just with an access token attached. If you also take a closer look at the code, notice that clicking login will take you to `localhost:8888/callback`, where a Spotify API call is made to get a token. You're then redirected to `localhost:8888/#access_token=...` , where we can actually access the token from the url. 
 
 
 
