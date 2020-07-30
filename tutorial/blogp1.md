@@ -57,7 +57,7 @@ Now that our Function App exists, we can create an actual function.
 
 ![createNewFunction](images/createNewFunction.png)
 
-Your functions page should look something like this, but empty. To create a function, click the **+Add** button and select HTTP trigger. Set your authorization level as function- this means that the caller needs to provide a key.
+Your functions page should look something like this, but empty. To create a function, click the **+Add** button and select HTTP trigger. Set your authorization level to function if you want to force the caller to provide a key, and anonymous if not. (Mine is currently anonymous).
 
 ![newHTTPFunction](images/newHTTPFunction.png)
 
@@ -262,6 +262,8 @@ function handle(event){
         data: payload,
         contentType: false,
         processData: false,
+        
+        //INCLUDE THIS HEADER IS YOUR FUNCTION IS NOT AUTH-LEVEL: ANONYMOUS, AND STICK YOUR FUNCTION KEY INSIDE
         headers: {'x-functions-key': 'YOUR FUNCTION KEY'},
 
         success: function (resp) {
