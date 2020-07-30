@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import Spotify from 'spotify-web-api-js'
 import SongList from './SongList'
 import PlaylistLink from './PlaylistLink'
 
-const spotifyApi = new Spotify();
 
 const ListSong = (props) => {
 
@@ -39,22 +37,37 @@ const ListSong = (props) => {
       console.log('in use effect')
       setTracks(data);
   }
+
+  async function getTop(type, limit){
+    const time_range = "medium_term";
+    const result = await fetch(`https://api.spotify.com/v1/me/top/${type}?time_range=${time_range}&limit=${limit}`, {
+        method: 'GET',
+        headers: { 'Authorization' : 'Bearer ' + props.token}
+    });
+    const data = await result.json();
+    console.log(data.items); 
+    return data.items;
+  } 
+
   //GET RECOMMENDATIONS FUNCTION
   async function getRecommendations(){
-    spotifyApi.setAccessToken(props.token)
-    const topTracks = await spotifyApi.getMyTopTracks()
-    // console.log(topTracks);
+
+    const numTracks = 3;
+    const numArtists = 2;
+  
+    const topTracks = await getTop('tracks', numTracks)
     let seedTracks = "";
-    for (let i = 0; i < 3; i++){
-      seedTracks = seedTracks + topTracks.items[i].id + "%2C";
+    for (let i = 0; i < numTracks; i++){
+      seedTracks = seedTracks + topTracks[i].id + "%2C";
     }
     seedTracks = seedTracks.substring(0, seedTracks.length-3); 
     
-    const topArtists = await spotifyApi.getMyTopArtists()
+    
+    const topArtists = await getTop('artists', numArtists)
     let seedArtists = '';
-    for (let i = 0; i < 2; i++){
-      seedArtists = seedArtists + topArtists.items[i].id + "%2C";
-    }
+    for (let i = 0; i < numArtists; i++){
+      seedArtists = seedArtists + topArtists[i].id + "%2C";
+    } 
 
     let minValence = 0;
     let maxValence = 1;
@@ -62,7 +75,7 @@ const ListSong = (props) => {
     const limit = 10;
 
     if (valence < .33){
-        maxValence = .33;
+        maxValence = .3;
     }
     else if (valence > .66){
         minValence = .66;
@@ -72,12 +85,15 @@ const ListSong = (props) => {
         maxValence = .65;
     }
 
-    //console.log('valences: ' + minValence + ' to ' + maxValence)
+    console.log("min: " + minValence);
+    console.log("max: " + maxValence);
+
+    
     const minPopularity = "70";
 
-    const result = await fetch(`https://api.spotify.com/v1/recommendations?&limit=${limit}&seed_tracks=${seedTracks}&seed_artists=${seedArtists}&min_popularity=${minPopularity}&min_valence=${minValence}&max_valence=${maxValence}`, {
+    const result = await fetch(`https://api.spotify.com/v1/recommendations?&limit=${limit}&seed_tracks=${seedTracks}&min_popularity=${minPopularity}&min_valence=${minValence}&max_valence=${maxValence}`, {
         method: 'GET',
-        headers: { 'Authorization' : 'Bearer ' + spotifyApi.getAccessToken()}
+        headers: { 'Authorization' : 'Bearer ' + props.token}
     });
     //console.log('before call');
     const data = await result.json();
@@ -128,7 +144,7 @@ const ListSong = (props) => {
   return (
     <div className='song-page'>
       <SongList recommendedTracks={tracks}/>
-      <div class="song-buttons">
+      <div className="song-buttons">
         <button className="green-btn" onClick={() => regenerateTracks()}>Regenerate Songs</button>
         <button className="green-btn" onClick={() => createPlaylist()}>Create playlist from these songs</button>
         <PlaylistLink link={link} value={value}/>

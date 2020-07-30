@@ -67,8 +67,6 @@ class UploadFace extends React.Component {
     var payload = new FormData(myform);
     console.log('---- handle completed---');
 
-    //$('#emotion').html('<h3>Please wait...</h3>');
-
     const resp = await fetch("https://songrecapp.azurewebsites.net/api/SongRecTrigger", {
       method: 'POST',
       body: payload
@@ -76,7 +74,6 @@ class UploadFace extends React.Component {
 
     var data = await resp.json();
     var emotions = data.result[0].faceAttributes.emotion;  
-    console.log('!!!') 
     console.log(emotions)
 
     console.log('submitform')
