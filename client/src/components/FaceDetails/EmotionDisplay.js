@@ -26,7 +26,7 @@ function EmotionDisplay(props) {
     const emotionComponents = [];
 
     for (let i = 0; i < emotionArray.length; i++){
-        if(emotionArray[i] > 0){
+        if(emotionPercentages[i] > 0){
             emotionComponents.push(<Emotion key={i} img={emojiArray[i]} percentage={emotionPercentages[i]}/>)
         }
     }
