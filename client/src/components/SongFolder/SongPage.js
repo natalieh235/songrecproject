@@ -52,22 +52,14 @@ const ListSong = (props) => {
   //GET RECOMMENDATIONS FUNCTION
   async function getRecommendations(){
 
-    const numTracks = 3;
-    const numArtists = 2;
+    const numTracks = 2;
+    const numArtists = 3;
   
     const topTracks = await getTop('tracks', numTracks)
-    let seedTracks = "";
-    for (let i = 0; i < numTracks; i++){
-      seedTracks = seedTracks + topTracks[i].id + "%2C";
-    }
-    seedTracks = seedTracks.substring(0, seedTracks.length-3); 
-    
+    let seedTracks = topTracks.map(track => track.id) 
     
     const topArtists = await getTop('artists', numArtists)
-    let seedArtists = '';
-    for (let i = 0; i < numArtists; i++){
-      seedArtists = seedArtists + topArtists[i].id + "%2C";
-    } 
+    let seedArtists = topArtists.map(artist => artist.id)
 
     let minValence = 0;
     let maxValence = 1;
@@ -75,26 +67,35 @@ const ListSong = (props) => {
     const limit = 10;
 
     if (valence < .33){
-        maxValence = .3;
+        maxValence = .33;
     }
     else if (valence > .66){
         minValence = .66;
     }
     else{
         minValence = .4;
-        maxValence = .65;
+        maxValence = .7;
     }
 
     console.log("min: " + minValence);
     console.log("max: " + maxValence);
 
-    
-    const minPopularity = "70";
+    let payload = new URLSearchParams({
+      'min_popularity': '70',
+      'limit': 10,
+      'seed_tracks': `${seedTracks}`,
+      'seed_artists': `${seedArtists}`,
+      'min_valence': `${minValence}`,
+      'max_valence': `${maxValence}`,
+      'min_energy': `${minValence}`,
+      'max_energy': `${maxValence}`
+    })
 
-    const result = await fetch(`https://api.spotify.com/v1/recommendations?&limit=${limit}&seed_tracks=${seedTracks}&min_popularity=${minPopularity}&min_valence=${minValence}&max_valence=${maxValence}`, {
+    const result = await fetch(`https://api.spotify.com/v1/recommendations?` + payload.toString(), {
         method: 'GET',
-        headers: { 'Authorization' : 'Bearer ' + props.token}
+        headers: { 'Authorization' : 'Bearer ' + props.token},
     });
+
     //console.log('before call');
     const data = await result.json();
     let recommendedTracksUri = [];
@@ -108,7 +109,7 @@ const ListSong = (props) => {
   }
 
   const createPlaylist = async() => {
-    console.log("am i here?")
+ 
     let id = props.id
     let params = {
       "name": "Better Song Recommendations",
