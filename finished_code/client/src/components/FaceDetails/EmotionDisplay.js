@@ -19,7 +19,7 @@ function EmotionDisplay(props) {
         totalEmotion += emotionArray[i];
     }
 
-    let emotionPercentages = emotionArray.map(num => (num/totalEmotion)*100)
+    let emotionPercentages = emotionArray.map(num => Math.round((num/totalEmotion)*100))
 
     let emojiArray = [anger, disgust, fear, happiness, neutral, sadness, surprise]
 
