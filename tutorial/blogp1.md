@@ -132,7 +132,7 @@ async function analyzeImage(byteArray){
 ```
 
 Here's an example of the JSON response returned for this image:
-<img src="/images/idpic.png" alt="idpic" width="176" height="236" />
+<img src="images/idpic.png" alt="idpic" width="176" height="236" />
 
 ```json
 {
