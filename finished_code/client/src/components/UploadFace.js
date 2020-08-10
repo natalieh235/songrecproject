@@ -4,7 +4,6 @@ import EmotionDisplay from './FaceDetails/EmotionDisplay'
 import FaceForm from './FormFolder/FaceForm'
 import SongPage from './SongFolder/SongPage'
 import UserProfile from './FaceDetails/UserProfile'
-import Cam from './FormFolder/Webcam'
 
 
 class UploadFace extends React.Component {
@@ -58,23 +57,15 @@ class UploadFace extends React.Component {
     })
   }
 
-  handleCapture = (imgSrc) => {
-    //console.log(imgSrc)
-    this.setState({ img: imgSrc });
-  }
-
   async submitForm(event){   
-    console.log("DID THIS WORK????")
     this.setState({loading: true})
     event.stopPropagation();
     event.preventDefault();
 
-    // var myform = document.getElementById('imageForm');
-    // console.log('---- myform ---'+myform);
-    // var payload = new FormData(myform);
-    // console.log('---- handle completed---');
-
-    var payload = this.state.img;
+    var myform = document.getElementById('imageForm');
+    console.log('---- myform ---'+myform);
+    var payload = new FormData(myform);
+    console.log('---- handle completed---');
 
     const resp = await fetch("https://songrecapp.azurewebsites.net/api/SongRecTrigger", {
       method: 'POST',
@@ -91,10 +82,9 @@ class UploadFace extends React.Component {
         emotions: emotions,
         submitted: true
       }
-    }) 
-  }
+    })
+}
 
-//<FaceForm submitForm={this.submitForm} loadFile={this.loadFile} img={this.state.img} showButton={this.state.showFormButton}/>
   render(){
     
     if(this.state.submitted){
@@ -120,10 +110,7 @@ class UploadFace extends React.Component {
     return (
       <div>
         <UserProfile userInfo={this.state.userInfo}/>
-        <Cam 
-          submit={this.submitForm} 
-          handleCapture={this.handleCapture}
-          img={this.state.img}/>
+        <FaceForm submitForm={this.submitForm} loadFile={this.loadFile} img={this.state.img} showButton={this.state.showFormButton}/>
       </div>
     )
   }
