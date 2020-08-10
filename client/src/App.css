@@ -29,7 +29,7 @@ nav{
 }
 
 #facePic{
-  width: 200px;
+  width: 100%;
 }
 
 .emoji{
@@ -43,13 +43,15 @@ nav{
   justify-items: center;
   justify-content: space-evenly;
   flex-direction: column;
+  align-items: flex-start;
+  margin: 10px
 }
 
 .img-side {
   display: flex;
   flex-direction: row;
   justify-items: center;
-  width: 30%;
+  width: 40%;
   height: 50%;
 }
 
@@ -68,8 +70,7 @@ nav{
 }
 
 .faceImage{
-  margin: 30px;
-  width: 50%;
+  width: 100%;
 }
 
 .form-input{
@@ -98,4 +99,28 @@ nav{
   display: flex;
   flex-direction: column;
 }
+
+#image-submission{
+  display: flex;
+  margin: auto;
+  align-content: center;
+  justify-content: center;
+}
+
+#webcam-div{
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+#screenshots{
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
 

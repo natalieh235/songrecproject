@@ -1,7 +1,6 @@
 import React from 'react';
 import FaceImage from './FormFolder/FaceImage'
 import EmotionDisplay from './FaceDetails/EmotionDisplay'
-import FaceForm from './FormFolder/FaceForm'
 import SongPage from './SongFolder/SongPage'
 import UserProfile from './FaceDetails/UserProfile'
 import Cam from './FormFolder/Webcam'
@@ -23,7 +22,6 @@ class UploadFace extends React.Component {
     }
 
     this.submitForm = this.submitForm.bind(this)
-    this.loadFile = this.loadFile.bind(this)
   }
 
   componentDidMount(){
@@ -48,31 +46,18 @@ class UploadFace extends React.Component {
     return hashParams;
   }
 
-
-  loadFile(event){
-    console.log(URL.createObjectURL(event.target.files[0]))
-    console.log('loadfile')
-    this.setState({
-      img: URL.createObjectURL(event.target.files[0]),
-      showFormButton: true
-    })
-  }
-
   handleCapture = (imgSrc) => {
     //console.log(imgSrc)
-    this.setState({ img: imgSrc });
+    this.setState({ 
+      img: imgSrc ,
+      showFormButton: true
+    });
   }
 
   async submitForm(event){   
-    console.log("DID THIS WORK????")
     this.setState({loading: true})
     event.stopPropagation();
     event.preventDefault();
-
-    // var myform = document.getElementById('imageForm');
-    // console.log('---- myform ---'+myform);
-    // var payload = new FormData(myform);
-    // console.log('---- handle completed---');
 
     var payload = this.state.img;
 
@@ -82,19 +67,27 @@ class UploadFace extends React.Component {
     })
 
     var data = await resp.json();
-    var emotions = data.result[0].faceAttributes.emotion;  
-    console.log(emotions)
+    
+    if (data.result.length != 0){
+      var emotions = data.result[0].faceAttributes.emotion;  
+      console.log(emotions)
 
-    console.log('submitform')
-    this.setState(() => {
-      return{
-        emotions: emotions,
-        submitted: true
-      }
-    }) 
+      console.log('submitform')
+      this.setState(() => {
+        return{
+          emotions: emotions,
+          submitted: true
+        }
+      }) 
+    } else{
+      this.setState(() => {
+        return{
+          loading: false
+        }
+      }) 
+    }
   }
 
-//<FaceForm submitForm={this.submitForm} loadFile={this.loadFile} img={this.state.img} showButton={this.state.showFormButton}/>
   render(){
     
     if(this.state.submitted){
@@ -123,7 +116,9 @@ class UploadFace extends React.Component {
         <Cam 
           submit={this.submitForm} 
           handleCapture={this.handleCapture}
-          img={this.state.img}/>
+          img={this.state.img}
+          showButton={this.state.showFormButton}
+          />
       </div>
     )
   }
