@@ -24,10 +24,12 @@ class Cam extends React.Component {
                 style={{width: '100%'}}
               />
               <button 
-                      className="green-btn" 
-                      onClick={(event) => this.props.handleCapture(this.webcam.getScreenshot())}
-                      style={{width: "50%" }}
-                      >Capture</button>
+                className="green-btn" 
+                onClick={(event) => this.props.handleCapture(this.webcam.getScreenshot())}
+                style={{width: "50%" }}
+                >Capture</button>
+
+                
             </div>
 
             <div id='screenshots'>
