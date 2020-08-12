@@ -40,7 +40,7 @@ class UploadFace extends React.Component {
     var hashParams = {};
     var e, r = /([^&;=]+)=?([^&;]*)/g,
         q = window.location.hash.substring(1);
-    while ( e = r.exec(q)) {
+    while (e = r.exec(q)) {
        hashParams[e[1]] = decodeURIComponent(e[2]);
     }
     return hashParams;
@@ -52,6 +52,14 @@ class UploadFace extends React.Component {
       img: imgSrc ,
       showFormButton: true
     });
+  }
+
+  retake = () => {
+    this.setState({
+      submitted: false,
+      showFormButton: false,
+      img: null
+    })
   }
 
   async submitForm(event){   
@@ -68,7 +76,7 @@ class UploadFace extends React.Component {
 
     var data = await resp.json();
     
-    if (data.result.length != 0){
+    if (data.result.length !== 0){
       var emotions = data.result[0].faceAttributes.emotion;  
       console.log(emotions)
 
@@ -76,7 +84,8 @@ class UploadFace extends React.Component {
       this.setState(() => {
         return{
           emotions: emotions,
-          submitted: true
+          submitted: true,
+          loading: false
         }
       }) 
     } else{
@@ -98,6 +107,7 @@ class UploadFace extends React.Component {
             <div className='profile-container'>
               <UserProfile userInfo={this.state.userInfo}/>
               <FaceImage faceImg={this.state.img}/>
+              <button className="green-btn" onClick={() => this.retake()}>Retake pic</button>
             </div>
             <EmotionDisplay emotions={this.state.emotions} />
             

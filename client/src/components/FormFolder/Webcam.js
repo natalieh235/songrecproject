@@ -34,7 +34,7 @@ class Cam extends React.Component {
 
           <div id='screenshots'>
             <h1>Image</h1>
-            {this.props.img ? <img src={this.props.img} /> : <img src={notfound} style={{width: '100%'}}/>}
+            {this.props.img ? <img alt='' src={this.props.img} /> : <img alt='' src={notfound} style={{width: '100%'}}/>}
             <button 
               className="green-btn" 
               onClick={(event) => this.props.submit(event)}
