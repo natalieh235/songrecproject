@@ -24,13 +24,13 @@ npm start
 
 Navigate to `http://localhost:3000` to see if your app is up and running. It should look something like this:
 
-![startingreactpage](/images/startingreactpage.png)
+![startingreactpage](images/startingreactpage.png)
 
 #### Step 2- Create the Homepage
 
 So this React app will involve some very simple routing- basically this means that different urls will render different pages. For example, going to `localhost:3000/home` will take you to a homepage, while going to `localhost:3000/song` will perhaps show a list of songs. We're going to focus on creating a basic homepage, which will look something like this:
 
-![reacthomepage](/images/reacthomepage.png)
+![reacthomepage](images/reacthomepage.png)
 
 Get started by making a new file called `Home.js`. I stuck this inside a folder `components`, since we're going to end up making a lot more files later on.
 
@@ -170,7 +170,7 @@ This specifies the url that the access_token should be attached to. For us, it's
 
 Make sure both your server and app are running(use `node app.js` for your server and `npm start` for your React app) and test it out!
 
-![loginexample](/images/loginexample.gif)
+![loginexample](images/loginexample.gif)
 
 Yay it works! (hopefully)
 
@@ -299,7 +299,7 @@ Here, we're using an `if` statement to check if the state variable `submitted` i
 
 The loading page:
 
-![loadingpage](/images/loadingpage.png)
+![loadingpage](images/loadingpage.png)
 
  
 
@@ -422,7 +422,7 @@ Here's the whole `getRecommendations()` function:
 
 In the rest of the code, I'm pretty much just displaying these 10 songs. Here's what the finished page looks like:
 
-![finishedpage](/images/finishedpage.png)
+![finishedpage](images/finishedpage.png)
 
 
 
