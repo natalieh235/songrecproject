@@ -5,9 +5,9 @@ function Emotion(props) {
     return (
     <div className="emojiDiv">
         <img alt='' src={props.img} className="emoji"></img>
-        <span>
-            <strong>{props.percentage}%</strong>
-        </span>
+        <br />
+        <strong>{props.percentage}%</strong>
+        
                 
     </div>
     );

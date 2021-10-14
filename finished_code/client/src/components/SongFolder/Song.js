@@ -5,7 +5,7 @@ function Song(props) {
     return (
     <div className="songItem">
         <img alt='' src={props.img} className="song"></img>
-        <span>
+        <span style={{marginLeft: '5px'}}>
             <strong>{props.title}- {props.artist}</strong>
         </span>          
     </div>

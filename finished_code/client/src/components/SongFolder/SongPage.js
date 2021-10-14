@@ -5,11 +5,9 @@ import PlaylistLink from './PlaylistLink'
 
 const ListSong = (props) => {
 
-  console.log('list song beginning')
-
   let valence = props.emotions.happiness+props.emotions.surprise-props.emotions.anger-props.emotions.fear
     -props.emotions.contempt-props.emotions.disgust;
-
+ 
   if(props.emotions.neutral > Math.abs(valence)){
     valence = 0.5
   }
@@ -20,11 +18,10 @@ const ListSong = (props) => {
   const [tracksUris, setTracksUris] = useState([]);
   
   useEffect(() => {
-    console.log('inside use effect')
+
     async function getData(){
       const data = await getRecommendations();
       console.log(data);
-      console.log('in use effect')
       setTracks(data);
     } 
     getData()  
@@ -34,7 +31,6 @@ const ListSong = (props) => {
   async function regenerateTracks(){
     const data = await getRecommendations();
       console.log(data);
-      console.log('in use effect')
       setTracks(data);
   }
 
@@ -63,8 +59,6 @@ const ListSong = (props) => {
 
     let minValence = 0;
     let maxValence = 1;
-
-    const limit = 10;
 
     if (valence < .33){
         maxValence = .33;

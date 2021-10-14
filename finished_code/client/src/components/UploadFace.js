@@ -1,9 +1,9 @@
 import React from 'react';
 import FaceImage from './FormFolder/FaceImage'
 import EmotionDisplay from './FaceDetails/EmotionDisplay'
-import FaceForm from './FormFolder/FaceForm'
 import SongPage from './SongFolder/SongPage'
 import UserProfile from './FaceDetails/UserProfile'
+import Cam from './FormFolder/Webcam'
 
 
 class UploadFace extends React.Component {
@@ -22,7 +22,6 @@ class UploadFace extends React.Component {
     }
 
     this.submitForm = this.submitForm.bind(this)
-    this.loadFile = this.loadFile.bind(this)
   }
 
   componentDidMount(){
@@ -41,60 +40,99 @@ class UploadFace extends React.Component {
     var hashParams = {};
     var e, r = /([^&;=]+)=?([^&;]*)/g,
         q = window.location.hash.substring(1);
-    while ( e = r.exec(q)) {
+    while (e = r.exec(q)) {
        hashParams[e[1]] = decodeURIComponent(e[2]);
     }
     return hashParams;
   }
 
-
-  loadFile(event){
-    console.log(URL.createObjectURL(event.target.files[0]))
-    console.log('loadfile')
-    this.setState({
-      img: URL.createObjectURL(event.target.files[0]),
+  handleCapture = (imgSrc) => {
+    //console.log(imgSrc)
+    this.setState({ 
+      img: imgSrc ,
       showFormButton: true
+    });
+  }
+
+  retake = () => {
+    this.setState({
+      submitted: false,
+      showFormButton: false,
+      img: null
     })
   }
+
+  makeblob = function (dataURL) {
+    var BASE64_MARKER = ';base64,';
+    if (dataURL.indexOf(BASE64_MARKER) == -1) {
+        var parts = dataURL.split(',');
+        var contentType = parts[0].split(':')[1];
+        var raw = decodeURIComponent(parts[1]);
+        return new Blob([raw], { type: contentType });
+    }
+    var parts = dataURL.split(BASE64_MARKER);
+    var contentType = parts[0].split(':')[1];
+    var raw = window.atob(parts[1]);
+    var rawLength = raw.length;
+
+    var uInt8Array = new Uint8Array(rawLength);
+
+    for (var i = 0; i < rawLength; ++i) {
+        uInt8Array[i] = raw.charCodeAt(i);
+    }
+
+    return new Blob([uInt8Array], { type: contentType });
+  }
+
 
   async submitForm(event){   
     this.setState({loading: true})
     event.stopPropagation();
     event.preventDefault();
 
-    var myform = document.getElementById('imageForm');
-    console.log('---- myform ---'+myform);
-    var payload = new FormData(myform);
-    console.log('---- handle completed---');
+    var payload = this.state.img;
 
-    const resp = await fetch("https://songrecapp.azurewebsites.net/api/SongRecTrigger", {
-      method: 'POST',
-      body: payload
+    const uri = process.env.REACT_APP_FACE_URL + "face/v1.0/detect?returnFaceId=true&returnFaceAttributes=emotion"
+    const resp = await fetch(uri, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/octet-stream",
+        "Ocp-Apim-Subscription-Key": process.env.REACT_APP_FACE_KEY,
+      },
+      body: this.makeblob(payload)
     })
 
     var data = await resp.json();
-    var emotions = data.result[0].faceAttributes.emotion;  
-    console.log(emotions)
+    
+    if (data.length !== 0){
+      var emotions = data[0].faceAttributes.emotion;  
 
-    console.log('submitform')
-    this.setState(() => {
-      return{
-        emotions: emotions,
-        submitted: true
-      }
-    })
-}
+      this.setState(() => {
+        return{
+          emotions: emotions,
+          submitted: true,
+          loading: false
+        }
+      }) 
+    } else{
+      this.setState(() => {
+        return{
+          loading: false
+        }
+      }) 
+    }
+  }
 
   render(){
     
     if(this.state.submitted){
-      console.log('form submitted')
       return(
         <div className='page'>
           <div className="img-side">
             <div className='profile-container'>
               <UserProfile userInfo={this.state.userInfo}/>
               <FaceImage faceImg={this.state.img}/>
+              <button className="green-btn" onClick={() => this.retake()}>Retake pic</button>
             </div>
             <EmotionDisplay emotions={this.state.emotions} />
             
@@ -110,7 +148,12 @@ class UploadFace extends React.Component {
     return (
       <div>
         <UserProfile userInfo={this.state.userInfo}/>
-        <FaceForm submitForm={this.submitForm} loadFile={this.loadFile} img={this.state.img} showButton={this.state.showFormButton}/>
+        <Cam 
+          submit={this.submitForm} 
+          handleCapture={this.handleCapture}
+          img={this.state.img}
+          showButton={this.state.showFormButton}
+          />
       </div>
     )
   }
