@@ -21,8 +21,8 @@
  
  var client_id = process.env.API_ID; // Your client id
  var client_secret = process.env.API_SECRET; // Your secret
- // var redirect_uri = "https://bsr-client.herokuapp.com/callback"; // Your redirect uri
- var redirect_uri = "http://localhost:4000/callback"
+ var redirect_uri = "https://bsr-client.herokuapp.com/callback"; // Your redirect uri
+//  var redirect_uri = "http://localhost:4000/callback"
  //https://bsr-client.herokuapp.com/callback
  
  /**
@@ -116,8 +116,9 @@
  
          // we can also pass the token to the browser to make requests from there
  
-         // let redirect_uri = "https://better-song-rec.herokuapp.com/face/#"
-         let redirect_uri = "http://localhost:3000/face/#"
+        //  let redirect_uri = "https://better-song-rec.herokuapp.com/face/#"
+        //  let redirect_uri = "http://localhost:3000/face/#"
+        let redirect_uri = process.env.REDIRECT
          res.redirect(
            redirect_uri +
              querystring.stringify({
